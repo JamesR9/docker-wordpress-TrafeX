@@ -48,7 +48,6 @@ COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 VOLUME /var/www/wp-content
 WORKDIR /var/www/wp-content
 RUN chown -R nobody.nobody /var/www
-RUN chmod 755 /uploads/
 
 # WordPress
 ENV WORDPRESS_VERSION 6.1
@@ -69,7 +68,11 @@ RUN curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh
 
 # WP config
 COPY wp-config.php /usr/src/wordpress
-RUN chown nobody.nobody /usr/src/wordpress/wp-config.php && chmod 640 /usr/src/wordpress/wp-config.php
+RUN chown nobody.nobody /usr/src/wordpress/wp-config.php && chmod 640 /usr/src/wordpress/wp-config.php 
+
+# WP config upload
+COPY uploads /usr/src/wordpress/uploads
+RUN chmod 755 nobody.nobody /usr/src/wordpress/uploads/
 
 # Append WP secrets
 COPY wp-secrets.php /usr/src/wordpress
