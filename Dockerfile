@@ -48,6 +48,7 @@ COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 VOLUME /var/www/wp-content
 WORKDIR /var/www/wp-content
 RUN chown -R nobody.nobody /var/www
+RUN chmod 755 /uploads/
 
 # WordPress
 ENV WORDPRESS_VERSION 6.1
